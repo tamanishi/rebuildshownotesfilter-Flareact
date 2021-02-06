@@ -1,6 +1,7 @@
 import Episode from '../components/Episode'
 import Header from '../components/Header'
-import { Container, Row, Col, Form, Input } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 
 async function getEpisodes() {
   const endpoint = `https://tamanishi.net/rebuildshownotesfilter3/shownotes-json`
@@ -15,22 +16,26 @@ export async function getEdgeProps() {
     props: {
       episodes: episodes,
     }
-  };
+  }
 }
 
-export default function Index({ episodes }) {
+export default function Index(props) {
+  const [episodes, setEpisodes] = useState(props.episodes)
   const filterShownotes = (e) => {
-
+    // console.log(e.target.value)
+    // setEpisodes([]);
+    // useEffect(() => {
+    //   setEpisodes([])
+    // })
   }
   
   return (
-      <div>
+      <>
         <Container>
           <Header />
           <Row><Col xs="3"><Form.Control type='text' placeholder='query' onChange={ filterShownotes } /></Col></Row>
-          {/* <form><input type='text' placeholder='query' onChange={ filterShownotes } /></form> */}
-            { episodes.map((episode, i) => <Episode episode={ episode } key={ i } />)}
+            { props.episodes.map((episode, i) => <Episode episode={ episode } key={ i } />)}
         </Container>
-      </div>
+      </>
   );
 }
