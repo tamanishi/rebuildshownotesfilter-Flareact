@@ -5,6 +5,10 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import { escape, unescape } from 'html-escaper';
 // import Fuse from 'fuse.js'
 
+export const config = {
+  amp: true,
+}
+
 async function getEpisodes() {
   const endpoint = `https://tamanishi.net/rebuildshownotesfilter3/shownotes-json`
   const res = await fetch(endpoint)
