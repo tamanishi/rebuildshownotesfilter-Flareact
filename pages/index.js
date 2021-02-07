@@ -1,7 +1,8 @@
 import Episode from '../components/Episode'
 import Header from '../components/Header'
-import { Container, Row, Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { escape, unescape } from 'html-escaper';
 // import Fuse from 'fuse.js'
 
 async function getEpisodes() {
@@ -40,7 +41,7 @@ export default function Index(props) {
     const filtered = props.fullEpisodes.map(episode => ({
       ...episode,
       shownotes: episode.shownotes
-        .filter(shownote => shownote.title.toLowerCase().includes(e.target.value.toLowerCase()))
+        .filter(shownote => shownote.title.toLowerCase().includes(escape(e.target.value.toLowerCase())))
     }))
     .filter(episode => episode.shownotes.length > 0)
 
