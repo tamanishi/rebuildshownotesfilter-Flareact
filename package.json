@@ -16,7 +16,6 @@
     "@zeit/next-sass": "^1.0.1",
     "bootstrap": "^4.6.0",
     "flareact": "^1.1.0",
-    "fuse.js": "^6.4.6",
     "html-escaper": "^3.0.0",
     "moment": "^2.29.1",
     "next-images": "^1.7.0",

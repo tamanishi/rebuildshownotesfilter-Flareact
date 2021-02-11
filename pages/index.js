@@ -1,9 +1,8 @@
 import Episode from '../components/Episode'
 import Header from '../components/Header'
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import { escape, unescape } from 'html-escaper';
-// import Fuse from 'fuse.js'
 
 export const config = {
   amp: true,
@@ -27,36 +26,37 @@ export async function getEdgeProps() {
 
 export default function Index(props) {
   const [filteredEpisodes, setFilteredEpisodes] = useState(props.fullEpisodes)
-  // const options = {
-  //   keys: ['title', 'shownotes.title']
-  // }
-  // const fuse = new Fuse(props.fullEpisodes, options)
+  const [query, setQuery] = useState("")
+  const intervalRef = useRef(null)
 
-  const filterShownotes = (e) => {
-    if (e.target.value === '') {
-      setFilteredEpisodes(props.fullEpisodes)
-      return
-    }
+  useEffect(
+    () => {
+      if (query) {
+        intervalRef.current = setTimeout(() => {
+          const filtered = props.fullEpisodes.map(episode => ({
+            ...episode,
+            shownotes: episode.shownotes
+              .filter(shownote => shownote.title.toLowerCase().includes(escape(query.toLowerCase())))
+          }))
+          .filter(episode => episode.shownotes.length > 0)
+      
+          setFilteredEpisodes(filtered)
+        },
+        1000)
+      } else {
+        setFilteredEpisodes(props.fullEpisodes)
+        clearTimeout(intervalRef.current)
+      }
+      return () => clearTimeout(intervalRef.current)
+    },
+    [query]
+  )
 
-    // const filtered = fuse.search(e.target.value).map((item) => {
-    //   return item.item
-    // })
-
-    const filtered = props.fullEpisodes.map(episode => ({
-      ...episode,
-      shownotes: episode.shownotes
-        .filter(shownote => shownote.title.toLowerCase().includes(escape(e.target.value.toLowerCase())))
-    }))
-    .filter(episode => episode.shownotes.length > 0)
-
-    setFilteredEpisodes(filtered)
-  }
-  
   return (
       <>
         <Container>
           <Header />
-          <Row><Col xs="3"><Form.Control type='text' placeholder='query' onChange={ filterShownotes } /></Col></Row>
+          <Row><Col xs="3"><Form.Control type='text' placeholder='query' onChange={ e => setQuery(e.target.value) } /></Col></Row>
             { filteredEpisodes.map((episode, i) => <Episode episode={ episode } key={ i } />)}
         </Container>
       </>
