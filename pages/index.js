@@ -31,8 +31,8 @@ export default function Index(props) {
 
   useEffect(
     () => {
-      if (query) {
-        intervalRef.current = setTimeout(() => {
+      intervalRef.current = setTimeout(() => {
+        if (query) {
           const filtered = props.fullEpisodes.map(episode => ({
             ...episode,
             shownotes: episode.shownotes
@@ -41,12 +41,11 @@ export default function Index(props) {
           .filter(episode => episode.shownotes.length > 0)
       
           setFilteredEpisodes(filtered)
-        },
-        1000)
-      } else {
-        setFilteredEpisodes(props.fullEpisodes)
-        clearTimeout(intervalRef.current)
-      }
+        } else {
+          setFilteredEpisodes(props.fullEpisodes)
+        }
+      },
+      500)
       return () => clearTimeout(intervalRef.current)
     },
     [query]
