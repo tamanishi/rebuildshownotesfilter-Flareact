@@ -56,7 +56,7 @@ export default function Index(props) {
         <Container>
           <Header />
           <Row><Col xs="3"><Form.Control type='text' placeholder='query' onChange={ e => setQuery(e.target.value) } /></Col></Row>
-            { filteredEpisodes.map((episode, i) => <Episode episode={ episode } key={ i } />)}
+            { filteredEpisodes.map((episode, i) => <Episode episode={ episode } query={ query } key={ i } />)}
         </Container>
       </>
   );

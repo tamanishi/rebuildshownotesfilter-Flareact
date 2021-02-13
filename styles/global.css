@@ -13,3 +13,7 @@ body {
   font-weight: lighter;
   font-size: small;
 }
+
+.Highlight {
+  background-color: #ffd54f;
+}
