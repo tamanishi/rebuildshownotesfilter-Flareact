@@ -1,9 +1,9 @@
 import Head from 'flareact/head'
 import Episode from '../components/Episode'
 import Header from '../components/Header'
-import { useState, useEffect, useRef } from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
-import { escape, unescape } from 'html-escaper';
+import { useState, useEffect, useRef } from 'react'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import { escape, unescape } from 'html-escaper'
 
 export const config = {
   amp: true,
@@ -40,7 +40,7 @@ export default function Index(props) {
               .filter(shownote => shownote.title.toLowerCase().includes(escape(query.toLowerCase())))
           }))
           .filter(episode => episode.shownotes.length > 0)
-      
+
           setFilteredEpisodes(filtered)
         } else {
           setFilteredEpisodes(props.fullEpisodes)

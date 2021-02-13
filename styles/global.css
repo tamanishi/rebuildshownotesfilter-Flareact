@@ -16,4 +16,6 @@ body {
 
 .Highlight {
   background-color: #ffd54f;
+  padding-left: 0em;
+  padding-right: 0em;
 }
