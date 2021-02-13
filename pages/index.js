@@ -1,3 +1,4 @@
+import Head from 'flareact/head'
 import Episode from '../components/Episode'
 import Header from '../components/Header'
 import { useState, useEffect, useRef } from 'react';
@@ -53,6 +54,9 @@ export default function Index(props) {
 
   return (
       <>
+        <Head>
+          <title>Rebuild Shownotes Filter</title>
+        </Head>
         <Container>
           <Header />
           <Row><Col xs="3"><Form.Control type='text' placeholder='query' onChange={ e => setQuery(e.target.value) } /></Col></Row>
