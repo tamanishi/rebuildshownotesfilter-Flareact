@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { useState, useEffect, useRef } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import { escape, unescape } from 'html-escaper'
+// import Fuse from 'fuse.js'
 
 export const config = {
   amp: true,
@@ -21,7 +22,8 @@ export async function getEdgeProps() {
   return {
     props: {
       fullEpisodes: episodes,
-    }
+    },
+    reavalidate: 60 * 5,
   }
 }
 
@@ -30,10 +32,19 @@ export default function Index(props) {
   const [query, setQuery] = useState("")
   const intervalRef = useRef(null)
 
+  // const options = {
+  //   keys: [ 'title', 'shownotes.title' ]
+  // }
+
   useEffect(
     () => {
       intervalRef.current = setTimeout(() => {
         if (query) {
+          // const fuse = new Fuse(props.fullEpisodes, options)
+          // const result = fuse.search(query.toLowerCase())
+          // const filtered = result.map((item) => {
+          //   return item.item
+          // })
           const filtered = props.fullEpisodes.map(episode => ({
             ...episode,
             shownotes: episode.shownotes
