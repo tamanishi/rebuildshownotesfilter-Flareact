@@ -11,7 +11,8 @@ export const config = {
 }
 
 async function getEpisodes() {
-  const endpoint = `https://tamanishi.net/rebuildshownotesfilter3/shownotes-json`
+  const endpoint = `https://raw.githubusercontent.com/tamanishi/rebuild_feed_to_json_go/master/episodes.json`
+  // const endpoint = `https://tamanishi.net/rebuildshownotesfilter3/shownotes-json`
   const res = await fetch(endpoint)
   const json = await res.json()
   return json.episodes
